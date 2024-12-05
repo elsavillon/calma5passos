@@ -9,42 +9,44 @@ const etapas = {
   },
   pessoaCai: {
     imagem: "pessoa-cai-chao.gif",
-    situacao: "A pessoa cai no chão.",
+    situacao: "A pessoa bate a cabeça.",
     acoes: [
-      { texto: "Virar a pessoa de lado", direciona: "pessoaDebate" },
-      { texto: "Aguardar o SAMU", direciona: "pessoaDebate" },
+      { texto: "Seguir instruções do SAMU", direciona: "pessoaDebate" },
     ],
   },
   pessoaDebate: {
     imagem: "pessoa-debate.gif",
     situacao: "A pessoa começa a se debater.",
     acoes: [
-      { texto: "Não tentar imobilizar", direciona: "pessoaContinua" },
-      { texto: "Tentar falar com a pessoa", direciona: "pessoaContinua" },
+      { texto: "C - Coloque a pessoa de lado, com a cabeça elevada para evitar sufocamento com saliva.", direciona: "pessoaContinua" },
     ],
   },
   pessoaContinua: {
     imagem: "pessoa-continua-debatendo.gif",
     situacao: "A pessoa continua se debatendo.",
     acoes: [
-      { texto: "Afastar os objetos perigosos", direciona: "pessoaSaliva" },
-      { texto: "Pedir calma", direciona: "pessoaSaliva" },
+      { texto: "A - Apoie a cabeça da pessoa com algo macio (blusa, mochila, jaleco).", direciona: "pessoaSaliva" },
     ],
   },
   pessoaSaliva: {
     imagem: "pessoa-saliva.gif",
     situacao: "A pessoa saliva e há riscos associados.",
     acoes: [
-      { texto: "Colocar uma colher na boca", direciona: "fimCrise" },
-      { texto: "Esperar a crise passar", direciona: "fimCrise" },
+      { texto: "L - Localize e afaste objetos perigosos (retire óculos, afrouxe roupas apertadas).", direciona: "monitorarTempo" },
+    ],
+  },
+  monitorarTempo: {
+    imagem: "monitorar-tempo.gif",
+    situacao: "Monitorando o tempo da crise.",
+    acoes: [
+      { texto: "M - Monitore a duração da crise e ligue para o SAMU se durar mais de 5 minutos.", direciona: "fimCrise" },
     ],
   },
   fimCrise: {
     imagem: "fim-crise.gif",
-    situacao: "Fim da crise.",
+    situacao: "Convulsão termina e a pessoa recupera a consciência.",
     acoes: [
-      { texto: "Colocar na posição de recuperação", direciona: "inicio" },
-      { texto: "Ir embora", direciona: "inicio" },
+      { texto: "A - Acompanhe a pessoa até que ela esteja em segurança. Ligue para o SAMU se necessário.", direciona: "inicio" },
     ],
   },
 };
