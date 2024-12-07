@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulação de Crise Convulsiva</title>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f2f2f2; /* Cor de fundo neutra */
+      color: #333;
+    }
+
+    .narrativa {
+      text-align: center;
+      padding: 20px;
+      max-width: 800px;
+      margin: 50px auto;
+      background-color: #ffffff; /* Fundo branco para a narrativa */
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .narrativa img {
+      width: 100%;
+      max-width: 500px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+    }
+
+    .narrativa p {
+      font-size: 1.25rem;
+      margin-bottom: 20px;
+      color: #333;
+      font-weight: bold;
+    }
+
+    button {
+      background-color: #9b59b6; /* Lilás adequado */
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      border-radius: 8px;
+      margin: 10px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #8e44ad;
+      transform: scale(1.05);
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+  </style>
+</head>
+<body>
+  <div class="narrativa" id="narrativa"></div>
+
+  <script>
+    const etapas = {
+      inicio: {
+        imagem: "inicio-crise-convulsiva.gif",
+        situacao: "Início da crise convulsiva.",
+        audio: "inicio-crise.m4a", // Áudio em formato m4a para início
+        acoes: [
+          { texto: "Prestar os primeiros socorros", direciona: "pessoaCai" },
+          { texto: "Ligar para o SAMU (192)", direciona: "pessoaCai" },
+        ],
+      },
+      pessoaCai: {
+        imagem: "pessoa-cai-chao.gif",
+        situacao: "A pessoa bate a cabeça.",
+        audio: "pessoa-cai.m4a", // Áudio em formato m4a
+        acoes: [
+          { texto: "Seguir instruções do SAMU", direciona: "pessoaDebate" },
+        ],
+      },
+      pessoaDebate: {
+        imagem: "pessoa-debate.gif",
+        situacao: "A pessoa começa a se debater.",
+        audio: "pessoa-debate.m4a", // Áudio em formato m4a
+        acoes: [
+          { texto: "C - Coloque a pessoa de lado, com a cabeça elevada para evitar sufocamento com saliva.", direciona: "pessoaContinua" },
+        ],
+      },
+      pessoaContinua: {
+        imagem: "pessoa-continua-debatendo.gif",
+        situacao: "A pessoa continua se debatendo.",
+        audio: "pessoa-continua.m4a", // Áudio em formato m4a
+        acoes: [
+          { texto: "A - Apoie a cabeça da pessoa com algo macio (blusa, mochila, jaleco).", direciona: "pessoaSaliva" },
+        ],
+      },
+      pessoaSaliva: {
+        imagem: "pessoa-saliva.gif",
+        situacao: "A pessoa saliva e há riscos associados.",
+        audio: "pessoa-saliva.m4a", // Áudio em formato m4a
+        acoes: [
+          { texto: "L - Localize e afaste objetos perigosos (retire óculos, afrouxe roupas apertadas).", direciona: "monitorarTempo" },
+        ],
+      },
+      monitorarTempo: {
+        imagem: "monitorar-tempo.gif",
+        situacao: "Monitorando o tempo da crise.",
+        audio: "monitorar-tempo.m4a", // Áudio em formato m4a
+        acoes: [
+          { texto: "M - Monitore a duração da crise e ligue para o SAMU se durar mais de 5 minutos.", direciona: "fimCrise" },
+        ],
+      },
+      fimCrise: {
+        imagem: "fim-crise.gif",
+        situacao: "Convulsão termina e a pessoa recupera a consciência.",
+        audio: "fim-crise.m4a", // Áudio em formato m4a
+        acoes: [
+          { texto: "A - Acompanhe a pessoa até que ela esteja em segurança. Ligue para o SAMU se necessário.", direciona: "inicio" },
+        ],
+      },
+    };
+
+    let audioPlayer = null; // Variável global para o player de áudio
+
+    function mostrar(nome) {
+      const etapa = etapas[nome];
+      let botoes = "";
+
+      // Gerar botões com base nas ações da etapa atual
+      for (let acao of etapa.acoes) {
+        botoes += `<button onclick="mostrar('${acao.direciona}')">${acao.texto}</button>`;
+      }
+
+      // Atualizar o conteúdo da div "narrativa"
+      const narrativa = document.getElementById("narrativa");
+      narrativa.innerHTML = `
+        <img src="${etapa.imagem}" alt="" />
+        <p>${etapa.situacao}</p>
+        <div>${botoes}</div>
+      `;
+
+      // Reproduzir o áudio
+      if (audioPlayer) {
+        audioPlayer.pause(); // Pausa o áudio anterior
+        audioPlayer.currentTime = 0; // Reseta o tempo do áudio anterior
+      }
+
+      // Criar ou atualizar o áudio
+      audioPlayer = new Audio(etapa.audio);
+      audioPlayer.play().catch((error) => {
+        console.error("Erro ao reproduzir áudio:", error);
+      });
+    }
+
+    // Exibir a etapa inicial ao carregar a página
+    mostrar("inicio");
+  </script>
+</body>
+</html>
