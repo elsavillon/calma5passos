@@ -2,7 +2,7 @@ const etapas = {
   inicio: {
     imagem: "inicio-crise-convulsiva.gif",
     situacao: "Início da crise convulsiva.",
-    audio: ["take_1.m4a", "take_2.m4a", "take_3.m4a", "take_4.m4a"], // Áudios em formato m4a
+    audio: ["audio/mulher_cotidiano.m4a","audio/inicio_crise.m4a", "audio/queda.m4a"], // Áudios em formato m4a
     acoes: [
       { texto: "Prestar os primeiros socorros", direciona: "pessoaCai", audio: "take_1.m4a" },
       { texto: "Ligar para o SAMU (192)", direciona: "pessoaCai", audio: "take_1.m4a" },
@@ -11,7 +11,7 @@ const etapas = {
   pessoaCai: {
     imagem: "pessoa-cai-chao.gif",
     situacao: "A pessoa bate a cabeça.",
-    audio: "pessoa-cai.m4a", // Áudio em formato m4a
+    audio: "audio/ligar_samu.m4a", // Áudio em formato m4a
     acoes: [
       { texto: "Seguir instruções do SAMU", direciona: "pessoaDebate", audio: "pessoa-cai.m4a" },
     ],
@@ -19,7 +19,7 @@ const etapas = {
   pessoaDebate: {
     imagem: "pessoa-debate.gif",
     situacao: "A pessoa começa a se debater.",
-    audio: "pessoa-debate.m4a", // Áudio em formato m4a
+    audio: "audio/primeiros_socorros.m4a", // Áudio em formato m4a
     acoes: [
       { texto: "C - Coloque a pessoa de lado, com a cabeça elevada para evitar sufocamento com saliva.", direciona: "pessoaContinua", audio: "pessoa-debate.m4a" },
     ],
